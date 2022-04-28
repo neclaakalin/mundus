@@ -4,7 +4,11 @@
     <Map />
   </div>
   <div class="countryListContainer">
-    <RegionBar name="i have been to..." :isVisited="true" />
+    <div class="visited">
+      <p>
+         {{ "been to " + countries.length + " countries out of 218"}}
+      </p> 
+    </div>
     <RegionBar v-for="region in regions" :key="region" :name="region" />
   </div>
 </template>
@@ -25,6 +29,11 @@ export default {
   data() {
     return {
       regions: MS.regions
+    }
+  },
+  computed: {
+    countries: function () {
+      return MS.getVisitedCountries()
     }
   }
 }
@@ -77,5 +86,16 @@ body {
   width: 100%;
   padding: 0 3%;
   box-sizing: border-box;
+}
+
+.visited {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  font-style: italic;
+  color: #B45C5C;
+  background-color: #F2F2F2;
+  padding: 0 1em;
 }
 </style>

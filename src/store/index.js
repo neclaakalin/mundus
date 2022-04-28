@@ -11,9 +11,14 @@ const MS = reactive({
       this.countriesVisited.push(id);
       localStorage.setItem("mv", JSON.stringify(this.countriesVisited));
     }
-    console.log(id);
-    document.getElementById(id).classList.add("active");
-    // to do check if it is parent, i.e. map-group and add children paths if so
+    const currentCountry = document.getElementById(id);
+    if (currentCountry.classList.value === "map-group") {
+      for (let i = 0; i < currentCountry.children.length; i++) {
+        currentCountry.children[i].classList.add("active");
+      }
+    } else {
+      currentCountry.classList.add("active");
+    }
   },
   removeVisited(id) {
     const countryIndex = this.countriesVisited.indexOf(id);
@@ -21,15 +26,19 @@ const MS = reactive({
       this.countriesVisited.splice(countryIndex, 1);
       localStorage.setItem("mv", JSON.stringify(this.countriesVisited));
     }
-    document.getElementById(id).classList.remove("active");
-    // to do check if it is parent, i.e. map-group and remove from children paths if so
+    const currentCountry = document.getElementById(id);
+    if (currentCountry.classList.value === "map-group") {
+      for (let i = 0; i < currentCountry.children.length; i++) {
+        currentCountry.children[i].classList.remove("active");
+      }
+    } else {
+      currentCountry.classList.remove("active");
+    }
   },
   getCountriesByRegion(region) {
-    return COUNTRIES.filter(
-      (country) =>
-        country.region === region &&
-        this.countriesVisited.indexOf(country.id) < 0
-    ).sort((f, s) => f.name < s.name);
+    return COUNTRIES.filter((country) => country.region === region).sort(
+      (f, s) => f.name < s.name
+    );
   },
   getVisitedCountries() {
     return COUNTRIES.filter((country) =>

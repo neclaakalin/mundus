@@ -1,10 +1,7 @@
 <template>
-  <div :class="isVisited ? ' visited' : isAccordionOpen ? 'header active' : 'header'" ref="header" @click="toggleAccordion">
+  <div :class="isAccordionOpen ? 'header active' : 'header'" ref="header" @click="toggleAccordion">
     <p>
       {{name}}
-    </p> 
-    <p v-if="isVisited">
-      {{countries.length + "/218"}}
     </p> 
   </div>
   <div class="countries" :class="isAccordionOpen ? '' : 'hidden'">
@@ -22,25 +19,19 @@ export default {
       CountryItem
   },
   props: {
-      name: String,
-      isVisited: Boolean
+      name: String
   },
   data() {
-    const isOpen = this.$props.isVisited ? true : false
     return {
-      isAccordionOpen: isOpen
+      isAccordionOpen: false
     }
   },
   computed: {
-      countries: function () {
-          return this.$props.isVisited ? MS.getVisitedCountries(this.$props.name) : MS.getCountriesByRegion(this.$props.name)
-          }
+      countries: function () { return MS.getCountriesByRegion(this.$props.name) }
   },
   methods: {
     toggleAccordion() {
-      if (!this.$props.isVisited) {
-        this.isAccordionOpen = !this.isAccordionOpen
-      }
+      this.isAccordionOpen = !this.isAccordionOpen
     }
   }
 }
@@ -73,23 +64,15 @@ export default {
   content: "\2796";
 }
 
-.visited {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  font-weight: 600;
-  font-style: italic;
-  color: #B45C5C;
-  background-color: #F2F2F2;
-  padding: 0 1em;
-}
-
 .countries {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 10px 0;
   margin: 1em 0;
+  transition: all 0.3s;
+  max-height: 1000px;
+  overflow: hidden;
 }
 
 .countries::after {
@@ -98,7 +81,9 @@ export default {
   min-width: 30%;
 }
 
-.hidden {
-  display: none;
+.hidden.countries {
+  transition: all 0.3s;
+  max-height: 0;
+  margin: 0;
 }
 </style>

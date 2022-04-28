@@ -1082,7 +1082,13 @@ export default {
           }
 
           if (MS.countriesVisited.includes(countryId)) {
-              path.classList.add("active")
+              if (path.classList.value === "map-group") {
+                  for (let i = 0; i < path.children.length; i++) {
+                      path.children[i].classList.add("active");
+                  }
+              } else {
+                  path.classList.add("active");
+            }
           }
       },
       toggleVisited(e) {
@@ -1155,8 +1161,16 @@ path:hover {
     fill: #CE8D8D;
 }
 
+path.active:hover {
+    fill: #C37474;
+}
+
 g:hover.map-group > path{
     fill: #CE8D8D;
+}
+
+g:hover.map-group > path.active{
+    fill: #C37474;
 }
 
 </style>
