@@ -1091,4 +1091,6 @@ const COUNTRIES = [
   },
 ];
 
-export { COUNTRIES };
+const ENDPOINT = "https://restcountries.com/v3.1/alpha/";
+
+export { COUNTRIES, ENDPOINT };

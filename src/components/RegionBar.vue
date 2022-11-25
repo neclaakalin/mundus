@@ -1,8 +1,8 @@
 <template>
   <div :class="isAccordionOpen ? 'header active' : 'header'" ref="header" @click="toggleAccordion">
-    <p>
+    <h3>
       {{name}}
-    </p> 
+    </h3> 
   </div>
   <div class="countries" :class="isAccordionOpen ? '' : 'hidden'">
     <CountryItem v-for="country in countries" :key="country.id" :name="country.name" :id="country.id" /> 
@@ -11,7 +11,7 @@
 
 <script>
 import CountryItem from '@/components/CountryItem.vue'
-import MS from '@/store/index'
+import MS from '@/store'
 
 export default {
   name: 'RegionBar',
@@ -46,9 +46,10 @@ export default {
   padding: 0 1em;
   box-sizing: border-box;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.header:hover {
+.header:hover, .header:active, .header:focus {
   background-color: #bac2cb;
 }
 

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import MS from '@/store/index'
+import MS from '@/store'
 
 export default {
   name: 'RadioSelect',
