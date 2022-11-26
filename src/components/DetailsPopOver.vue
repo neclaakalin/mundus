@@ -10,7 +10,7 @@
             <UserIcon />
             <p>{{countryData.population.toLocaleString()}}</p>
             <CityIcon />
-            <p>{{countryData.capital[0]}}</p>  
+            <p>{{countryData.capital.join(', ')}}</p>  
         </div>
       </div>
   </div>
@@ -92,6 +92,7 @@ export default {
     align-items: center;
     justify-content: center;
     gap: 0.5em;
+    white-space: nowrap;
 }
 
 @media screen and (max-width: 800px) {
